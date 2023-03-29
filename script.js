@@ -4,12 +4,14 @@
 const api = "https://open.er-api.com/v6/latest";
 
 // For selecting different controls
+// var convert = document.querySelector(".main");
 var search = document.querySelector(".searchBox");
 var convert = document.querySelector(".convert");
 var fromCurrecy = document.querySelector(".from");
 var toCurrecy = document.querySelector(".to");
 var finalValue = document.querySelector(".finalValue");
 var finalAmount = document.getElementById("finalAmount");
+var content;
 var resultFrom;
 var resultTo;
 var searchValue;
@@ -49,8 +51,16 @@ function displayResults(currency) {
   console.log(currency);
   let fromRate = currency.rates[resultFrom];
   let toRate = currency.rates[resultTo];
-  finalValue.innerHTML = ((toRate / fromRate) * searchValue).toFixed(2);
-  finalAmount.style.display = "block";
+  if (searchValue && fromRate && toRate) {
+    finalValue.innerHTML = ((toRate / fromRate) * searchValue).toFixed(2);
+    finalAmount.style.display = "block";
+    content = true;
+  } else {
+    finalValue.innerHTML = "Please fill all the data";
+    finalAmount.style.display = "block";
+    content = false;
+    window.alert("Please fill all the data");
+  }
 }
 
 // When user click on reset button
